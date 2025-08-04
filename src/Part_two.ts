@@ -42,4 +42,42 @@ function isManger(obj:Person|DogOwner| Manager): obj is Manager{
 
 if (isManger(employee)){
       employee.delegateTasks();
+};
+
+//  tuples 
+
+const lists : [number, string] = [2, 'bishop'];
+
+lists.push('bishmas');
+lists.push(29);
+
+
+function getDets():[number,string]{
+      return lists
 }
+
+let admin = getDets()
+
+
+// enums
+
+enum UserRole {
+      admin = 'admin',
+      manger = 'manager',
+      employee = 'employee'
+}
+
+type User ={
+      id:number,
+      name:string,
+      role: UserRole,
+      contact:[email:string,phone:string]
+}
+
+function createUser(user:User):User{
+      return user
+}
+
+const user:User= createUser({id:1, name:'bish', role:UserRole.admin, contact:['bish@gmail.com', '274']})
+
+console.log(user)
