@@ -67,7 +67,7 @@ const tourSchema = z.object({
       image: z.string(),
       info: z.string(),
       price: z.string(),
-      // boolen: z.string()
+      boolen: z.string
 })
 
 type Tour = z.infer<typeof tourSchema>
@@ -84,11 +84,9 @@ async function fetchTour(url:string): Promise<Tour[]>{
       const rawData: Tour[] = await response.json();
       const result = tourSchema.array().safeParse(rawData)
       if(!result.success){
-            // throw new Error(`invalid data: ${result.error}`);
-            console.error(result.error.format())
+            throw new Error(`invalid data: ${result.error}`);
       }
-      // return result.data;
-      return result.data
+      return result.data;
       
     } catch (error) {
       error instanceof Error ? `http erro : ${error.message}`: 'unknown error';
@@ -99,4 +97,69 @@ async function fetchTour(url:string): Promise<Tour[]>{
 
 const tours = await fetchTour(url)
 
-console.log(tours)
+// class construcutor
+
+class Motor {
+     readonly name: string;
+      brand: string;
+      // setting up default properties
+     sold: boolean = false;
+      
+
+    constructor(name:string, brand:string){
+      this.name = name;
+      this.brand= brand;
+    }
+   public  sell(){
+      this.sold = this.toggleSold()}
+    isSold(){
+      console.log(this.sell())
+    }
+   private toggleSold(){
+      return !this.sold;   
+    }
+}
+
+
+const newRide = new Motor('pilot', 'honda')
+
+// setters and getters
+
+class Book{
+      constructor(public name:string, private author:string){}
+
+      // using getters
+      get authorAge():string{
+         let age = this.author.length * 2;
+         return `the authours age is ${age}`
+      }
+
+
+      // using setters
+      set authorName(name:string){
+            if(name.trim()=== ''){
+              throw new Error('not a valid author name');
+            }
+            
+            this.author = name
+      }
+}
+
+const favBook = new Book('things fall apart', 'bishop');
+
+
+// implementing the interface by the class
+
+interface Iperson {
+   name: string;
+   age: number;
+   greet(): void;
+}
+
+class Human implements Iperson{
+      constructor( public name:string, public age:number){}
+
+      greet(): void {
+         console.log('hello fucktads')
+      }
+}
